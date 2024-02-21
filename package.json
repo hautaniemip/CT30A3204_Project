@@ -1,0 +1,16 @@
+{
+  "name": "ct30a3204_project",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "cd server && NODE_ENV=production npm start",
+    "preinstall": "cd server && npm install",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "dev:client": "cd client && npm start",
+    "dev:server": "cd server && NODE_ENV=development npm run dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "main": "index.js"
+}
