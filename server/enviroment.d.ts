@@ -5,7 +5,6 @@ declare global {
             PORT?: string;
             MONGODB_URI: string;
             SECRET: string;
-            SALT: string;
         }
     }
 }
