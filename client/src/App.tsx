@@ -51,7 +51,10 @@ const loginAction = async ({request}: LoaderFunctionArgs) => {
 }
 
 const loginLoader = async () => {
-    await AuthProvider.login("", "");
+    try {
+        await AuthProvider.login("", "");
+    } catch (err) {
+    }
     if (AuthProvider.isAuthenticated) {
         return redirect("/");
     }
