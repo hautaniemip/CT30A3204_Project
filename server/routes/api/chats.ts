@@ -8,7 +8,7 @@ import {Chat} from '../../models/chat';
 export const router = express.Router();
 
 router.get('/', passport.authenticate('jwt'), (req, res) => {
-    const token = req.cookies['access_token']
+    const token = req.cookies['access_token'];
     const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
     const id = decoded_token._id;
 
