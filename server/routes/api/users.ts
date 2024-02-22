@@ -46,7 +46,8 @@ router.post('/login', async (req, res) => {
                 const token = jwt.sign({_id: user._id, email: user.email}, process.env.SECRET);
                 res.cookie('access_token', token, {
                     maxAge: 3 * 3600e3,
-                    httpOnly: true
+                    httpOnly: true,
+                    sameSite: 'lax',
                 });
 
                 res.json({name: user.name, email: user.email});
@@ -71,7 +72,8 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({_id: user._id, email: email}, process.env.SECRET);
         res.cookie('access_token', token, {
             maxAge: 3 * 3600e3,
-            httpOnly: true
+            httpOnly: true,
+            sameSite: 'lax',
         });
         res.json({name: user.name, email: user.email});
     });
