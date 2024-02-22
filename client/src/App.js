@@ -1,25 +1,101 @@
-import logo from './logo.svg';
 import './App.css';
+import LoginPage from "./pages/LoginPage";
+import {AuthProvider} from "./components/AuthProvider";
+import {createBrowserRouter, Outlet, redirect, RouterProvider} from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import AuthStatus from "./components/AuthStatus";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    return (
+        <RouterProvider router={router} fallbackElement={<p>Initial Load...</p>}/>
+    );
 }
+
+const Title = () => {
+    return (
+        <>
+            <h1>Matcher</h1>
+            <AuthStatus/>
+            <Outlet/>
+        </>
+    );
+}
+
+const protectedLoader = () => {
+    if (!AuthProvider.isAuthenticated) {
+        return redirect("/login");
+    }
+    return null;
+}
+
+const loginAction = async ({request}) => {
+    const formData = await request.formData();
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    if (!email || !password) {
+        return {
+            error: "You must provide email and password to log in",
+        };
+    }
+
+    try {
+        await AuthProvider.login(email, password);
+    } catch (error) {
+        return {
+            error: "Invalid login attempt",
+        };
+    }
+
+    return redirect("/");
+}
+
+const loginLoader = async () => {
+    await AuthProvider.login("", "");
+    if (AuthProvider.isAuthenticated) {
+        return redirect("/");
+    }
+    return null;
+}
+
+const router = createBrowserRouter([
+    {
+        id: "root",
+        path: "/",
+        loader() {
+            // Our root route always provides the user, if logged in
+            return {
+                user: {
+                    isAuthenticated: AuthProvider.isAuthenticated,
+                    name: AuthProvider.name,
+                    email: AuthProvider.email
+                }
+            };
+        },
+        Component: Title,
+        children: [
+            {
+                index: true,
+                loader: protectedLoader,
+                Component: HomePage,
+            },
+            {
+                path: "login",
+                action: loginAction,
+                loader: loginLoader,
+                Component: LoginPage,
+            },
+        ],
+    },
+    {
+        path: "/logout",
+        async action() {
+            // We signout in a "resource route" that we can hit from a fetcher.Form
+            await AuthProvider.logout();
+            return redirect("/");
+        },
+    },
+]);
+
 
 export default App;
