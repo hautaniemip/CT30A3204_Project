@@ -18,7 +18,7 @@ router.get('/', passport.authenticate('jwt'), (req, res) => {
             return;
         }
 
-        Chat.find({participants: user._id}).then((chats) => {
+        Chat.find({participants: user._id}, {}, {sort: {updatedAt: -1}}).then((chats) => {
             console.log(chats);
             res.json({chats: chats});
         });
