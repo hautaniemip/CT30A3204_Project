@@ -45,6 +45,10 @@ router.post('/:chat', passport.authenticate('jwt'), (req, res) => {
         }
 
         Message.create({chat: chatId, sender: user._id, content: content});
+        Chat.findById(chatId).then((chat) => {
+            if (chat)
+                chat.save();
+        });
         res.send();
     });
 });
