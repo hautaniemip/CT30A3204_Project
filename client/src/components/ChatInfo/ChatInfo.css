@@ -1,0 +1,18 @@
+.chat-info {
+    max-width: 200px;
+    padding: 10px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.timestamp {
+    color: gray;
+    font-size: 0.8em;
+}
