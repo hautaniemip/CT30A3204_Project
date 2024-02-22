@@ -1,8 +1,14 @@
 import {useFetcher, useRouteLoaderData} from "react-router-dom";
 
-const AuthStatus = () => {
+interface User {
+    isAuthenticated: boolean,
+    name: string,
+    email: string,
+}
+
+export const AuthStatus = () => {
     // Get our logged in user, if they exist, from the root route loader data
-    let {user} = useRouteLoaderData("root");
+    let {user} = useRouteLoaderData("root") as { user: User };
     let fetcher = useFetcher();
 
     if (!user.isAuthenticated) {
@@ -22,5 +28,3 @@ const AuthStatus = () => {
         </>
     );
 }
-
-export default AuthStatus;

@@ -1,9 +1,9 @@
 import './App.css';
 import LoginPage from "./pages/LoginPage";
 import {AuthProvider} from "./components/AuthProvider";
-import {createBrowserRouter, Outlet, redirect, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, LoaderFunctionArgs, Outlet, redirect, RouterProvider} from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import AuthStatus from "./components/AuthStatus";
+import {AuthStatus} from "./components/AuthStatus";
 
 const App = () => {
     return (
@@ -28,10 +28,10 @@ const protectedLoader = () => {
     return null;
 }
 
-const loginAction = async ({request}) => {
+const loginAction = async ({request}: LoaderFunctionArgs) => {
     const formData = await request.formData();
-    const email = formData.get("email");
-    const password = formData.get("password");
+    const email = formData.get("email") as string | null;
+    const password = formData.get("password") as string | null;
 
     if (!email || !password) {
         return {

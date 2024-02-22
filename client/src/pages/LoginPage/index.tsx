@@ -4,7 +4,8 @@ const LoginPage = () => {
     let navigation = useNavigation();
     let isLoggingIn = navigation.formData?.get("email") != null;
 
-    let actionData = useActionData();
+    let actionData = useActionData() as { error: string } | undefined;
+
     return (
         <>
             <h2>Login</h2>

@@ -1,8 +1,18 @@
-export const AuthProvider = {
+interface AuthProviderInterface {
+    isAuthenticated: boolean;
+    name: null | string;
+    email: null | string;
+
+    login(email: string, password: string): Promise<void>;
+
+    logout(): Promise<void>;
+}
+
+export const AuthProvider: AuthProviderInterface = {
     isAuthenticated: false,
     name: null,
     email: null,
-    async login(email, password) {
+    async login(email: string, password: string) {
         await fetch("/api/users/login", {
             method: "POST",
             headers: {
