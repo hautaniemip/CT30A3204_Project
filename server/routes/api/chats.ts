@@ -10,9 +10,9 @@ export const router = express.Router();
 router.get('/', passport.authenticate('jwt'), (req, res) => {
     const token = req.cookies['access_token']
     const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
-    const email = decoded_token.email;
+    const id = decoded_token._id;
 
-    User.findOne({email: email}).then((user) => {
+    User.findById(id).then((user) => {
         if (!user) {
             res.status(400).send();
             return;
