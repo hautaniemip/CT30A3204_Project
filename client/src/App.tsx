@@ -2,7 +2,7 @@ import './App.css';
 import LoginPage from "./pages/LoginPage";
 import {AuthProvider} from "./components/AuthProvider";
 import {createBrowserRouter, Link, LoaderFunctionArgs, Outlet, redirect, RouterProvider} from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import ChatPage from "./pages/ChatPage";
 import {AuthStatus} from "./components/AuthStatus";
 import MatchPage from "./pages/MatchPage";
 import AccountPage from "./pages/AccountPage";
@@ -122,7 +122,7 @@ const router = createBrowserRouter([
             {
                 index: true,
                 loader: protectedLoader,
-                Component: HomePage,
+                Component: ChatPage,
             },
             {
                 path: "matches",

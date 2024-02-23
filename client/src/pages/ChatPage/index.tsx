@@ -1,6 +1,6 @@
 import ChatManager from "../../components/ChatManager";
 
-const HomePage = () => {
+const ChatPage = () => {
     return (
         <>
             <h2>Home</h2>
@@ -9,4 +9,4 @@ const HomePage = () => {
     );
 }
 
-export default HomePage;
+export default ChatPage;
