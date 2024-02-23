@@ -1,10 +1,8 @@
-import {useFetcher, useRouteLoaderData} from "react-router-dom";
-import {User} from "../types/user";
+import {useFetcher} from "react-router-dom";
 import {AuthProvider} from "./AuthProvider";
 
 export const AuthStatus = () => {
     // Get our logged in user, if they exist, from the root route loader data
-    let {user} = useRouteLoaderData("root") as { user: User };
     let fetcher = useFetcher();
 
     if (!AuthProvider.isAuthenticated) {
@@ -15,7 +13,6 @@ export const AuthStatus = () => {
 
     return (
         <>
-            <p>Welcome {user.email}!</p>
             <fetcher.Form method="post" action="/logout">
                 <button type="submit" disabled={isLoggingOut}>
                     {isLoggingOut ? "Signing out..." : "Sign out"}
