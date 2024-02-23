@@ -1,9 +1,9 @@
-ul {
+.chat-manager ul {
     padding: 0;
     margin: 0;
 }
 
-li {
+.chat-manager li {
     list-style: none;
     cursor: pointer;
 }
