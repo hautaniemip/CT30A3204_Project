@@ -4,3 +4,9 @@ export type Chat = {
     sender: string | null
     message: string | null;
 }
+
+export type Message = {
+    id: string;
+    content: string;
+    sentByYou: boolean;
+}
