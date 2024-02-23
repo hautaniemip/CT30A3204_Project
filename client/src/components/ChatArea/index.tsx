@@ -1,13 +1,16 @@
 import {useEffect, useState} from "react";
 import {Chat, Message} from "../../types/chat";
 import "./ChatArea.css"
+import MessageBox from "./MessageBox";
 
 type ChatAreaProps = {
     chat: string | null;
+    updateCallback: Function;
 }
-const ChatArea = ({chat}: ChatAreaProps) => {
+const ChatArea = ({chat, updateCallback}: ChatAreaProps) => {
     const [chatInfo, setChatInfo] = useState<Chat | null>(null);
-    const [messages, setMessages] = useState<Message[]>([])
+    const [messages, setMessages] = useState<Message[]>([]);
+    const [update, setUpdate] = useState<boolean>(true);
 
     useEffect(() => {
         if (!chat)
@@ -26,7 +29,14 @@ const ChatArea = ({chat}: ChatAreaProps) => {
             }
             return res.json();
         }).then((data) => setMessages(data)).catch((err) => console.error(err));
-    }, [chat]);
+
+        setUpdate(false);
+    }, [chat, update]);
+
+    const updateOnMessageSent = () => {
+        setUpdate(true);
+        updateCallback();
+    }
 
     return (
         <div>
@@ -38,6 +48,7 @@ const ChatArea = ({chat}: ChatAreaProps) => {
                             return (<div key={message.id}><span>{message.content}</span></div>)
                         })}
                     </div>
+                    <MessageBox chat={chat} messageSentCallback={updateOnMessageSent}/>
                 </div>
             }
 
