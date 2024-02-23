@@ -14,8 +14,10 @@ const App = () => {
 const Title = () => {
     return (
         <>
-            <h1>Matcher</h1>
-            <AuthStatus/>
+            <header>
+                <h1>Matcher</h1>
+                <AuthStatus/>
+            </header>
             <Outlet/>
         </>
     );
