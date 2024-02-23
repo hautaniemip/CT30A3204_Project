@@ -30,7 +30,7 @@ router.post('/register', body('name').isLength({min: 3}), body('email').isEmail(
             return;
         }
 
-        User.create({name: name, email: email, password: hash});
+        User.create({name: name, email: email, password: hash, status: ""});
         res.status(200).send();
     });
 });
@@ -106,7 +106,7 @@ router.get('/random', passport.authenticate('jwt'), (req, res) => {
             }
         } while (user._id.toString() === randomUser._id.toString() || user.liked.includes(randomUser._id))
 
-        res.json({id: randomUser._id, name: randomUser.name})
+        res.json({id: randomUser._id, name: randomUser.name, status: randomUser.status})
     }).catch((err) => res.status(400).send(err));
 });
 
@@ -127,6 +127,7 @@ router.get('/:user', passport.authenticate('jwt'), (req, res) => {
             res.json({
                 name: user.name,
                 email: user.email,
+                status: user.status,
                 liked: user.liked,
                 likedBy: user.likedBy,
                 matches: user.matches
@@ -140,7 +141,7 @@ router.get('/:user', passport.authenticate('jwt'), (req, res) => {
                 return;
             }
 
-            res.json({name: user.name});
+            res.json({name: user.name, status: user.status});
         }).catch(() => res.status(400).send());
     }).catch(() => res.status(400).send());
 });
@@ -151,8 +152,9 @@ router.put('/edit', passport.authenticate('jwt'), (req, res) => {
     const id = decoded_token._id;
     const name = req.body.name;
     const email = req.body.email;
+    const status = req.body.status;
 
-    User.findByIdAndUpdate(id, {name: name, email: email}).then((user) => {
+    User.findByIdAndUpdate(id, {name: name, email: email, status: status}).then((user) => {
         if (!user) {
             res.status(400).send();
             return;
