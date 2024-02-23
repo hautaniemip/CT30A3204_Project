@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {Chat, Message} from "../../types/chat";
 import "./ChatArea.css"
 import MessageBox from "./MessageBox";
+import MessageView from "./MessageView";
 
 type ChatAreaProps = {
     chat: string | null;
@@ -47,7 +48,7 @@ const ChatArea = ({chat, updateCallback, closeCallback}: ChatAreaProps) => {
                               onClick={() => closeCallback()}>X</span> {chatInfo && chatInfo.name}</h3>
                     <div className={"message-area"}>
                         {messages && messages.map((message) => {
-                            return (<div key={message.id}><span>{message.content}</span></div>)
+                            return (<MessageView key={message.id} message={message}/>);
                         })}
                     </div>
                     <MessageBox chat={chat} messageSentCallback={updateOnMessageSent}/>
