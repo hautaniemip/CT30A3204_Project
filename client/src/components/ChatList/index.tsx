@@ -4,6 +4,7 @@ import "./ChatList.css"
 
 type ChatListProps = {
     selectChat: Function;
+    updateChatList: boolean;
 }
 
 type Chat = {
@@ -14,16 +15,17 @@ type Chat = {
     __v: number
 }
 
-const ChatList = ({selectChat}: ChatListProps) => {
+const ChatList = ({selectChat, updateChatList}: ChatListProps) => {
     const [chats, setChats] = useState<Chat[]>([]);
     useEffect(() => {
         fetch("/api/chats").then((res) => {
             if (res.status !== 200)
                 throw new Error("Invalid request");
 
+            setChats([]);
             return res.json();
         }).then((data) => setChats(data.chats)).catch((err) => console.error(err));
-    }, []);
+    }, [updateChatList]);
 
     return (
         <>
