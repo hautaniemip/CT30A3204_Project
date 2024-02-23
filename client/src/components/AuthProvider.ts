@@ -3,6 +3,8 @@ interface AuthProviderInterface {
     name: null | string;
     email: null | string;
 
+    register(name: string, email: string, password: string): Promise<void>;
+
     login(email: string, password: string): Promise<void>;
 
     logout(): Promise<void>;
@@ -12,6 +14,18 @@ export const AuthProvider: AuthProviderInterface = {
     isAuthenticated: false,
     name: null,
     email: null,
+    async register(name: string, email: string, password: string) {
+        await fetch("/api/users/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({name, email, password}),
+        }).then((res) => {
+            if (res.status !== 200)
+                throw new Error("Email already in use")
+        });
+    },
     async login(email: string, password: string) {
         await fetch("/api/users/login", {
             method: "POST",
