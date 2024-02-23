@@ -4,6 +4,7 @@ import {AuthProvider} from "./components/AuthProvider";
 import {createBrowserRouter, LoaderFunctionArgs, Outlet, redirect, RouterProvider} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import {AuthStatus} from "./components/AuthStatus";
+import RegisterPage from "./pages/RegisterPage";
 
 const App = () => {
     return (
@@ -63,6 +64,29 @@ const loginLoader = async () => {
     return null;
 }
 
+const registerAction = async ({request}: LoaderFunctionArgs) => {
+    const formData = await request.formData();
+    const name = formData.get("email") as string | null;
+    const email = formData.get("email") as string | null;
+    const password = formData.get("password") as string | null;
+
+    if (!email || !password || !name) {
+        return {
+            error: "You must provide name, email and password to register",
+        };
+    }
+
+    try {
+        await AuthProvider.register(name, email, password);
+    } catch (error) {
+        return {
+            error: error instanceof Error ? error.message : "Something went wrong",
+        };
+    }
+
+    return redirect("/login");
+}
+
 const router = createBrowserRouter([
     {
         id: "root",
@@ -89,6 +113,12 @@ const router = createBrowserRouter([
                 action: loginAction,
                 loader: loginLoader,
                 Component: LoginPage,
+            },
+            {
+                path: "register",
+                action: registerAction,
+                loader: loginLoader,
+                Component: RegisterPage,
             },
         ],
     },
