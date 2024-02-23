@@ -42,7 +42,7 @@ const ChatArea = ({chat, updateCallback, closeCallback}: ChatAreaProps) => {
     return (
         <div>
             {chat &&
-                <div>
+                <div className={"chat-area"}>
                     <h3><span className={"close-btn"}
                               onClick={() => closeCallback()}>X</span> {chatInfo && chatInfo.name}</h3>
                     <div className={"message-area"}>

@@ -1,3 +1,9 @@
+.chat-area {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+}
+
 .message-area {
     overflow: auto;
     display: flex;
