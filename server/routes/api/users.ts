@@ -79,6 +79,38 @@ router.post('/login', async (req, res) => {
     });
 });
 
+router.get('/random', passport.authenticate('jwt'), (req, res) => {
+    const token = req.cookies['access_token'];
+    const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
+    const id = decoded_token._id;
+
+    User.findById(id).then(async (user) => {
+        if (!user) {
+            res.status(400).send();
+            return;
+        }
+        const count = await User.countDocuments({});
+
+        if (user.liked.length === count - 1) {
+            res.status(200).json({id: "0", name: ""});
+        }
+
+        let randomUser = null;
+        do {
+            const random = Math.floor(Math.random() * count);
+            randomUser = await User.findOne().skip(random);
+
+            if (!randomUser) {
+                res.status(400).send();
+                return;
+            }
+        } while (user._id.toString() === randomUser._id.toString() || user.liked.includes(randomUser._id))
+
+        res.json({id: randomUser._id, name: randomUser.name})
+    }).catch((err) => res.status(400).send(err));
+});
+
+
 router.get('/:user', passport.authenticate('jwt'), (req, res) => {
     const token = req.cookies['access_token'];
     const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
