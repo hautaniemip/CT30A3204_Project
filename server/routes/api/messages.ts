@@ -26,7 +26,16 @@ router.get('/:chat', passport.authenticate('jwt'), (req, res) => {
                 return;
             }
 
-            Message.find({chat: chatId}).then(messages => res.json(messages));
+            Message.find({chat: chatId}, {}, {sort: {createdAt: -1}}).then((messages) => {
+                let modifiedMessages = messages.map((message) => {
+                    return {
+                        id: message._id,
+                        content: message.content,
+                        sentByYou: message.sender.toString() === id,
+                    }
+                });
+                res.json(modifiedMessages);
+            });
         }).catch(() => res.status(400).send());
     }).catch(() => res.status(400).send());
 });
