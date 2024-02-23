@@ -15,9 +15,11 @@ const ChatManager = () => {
     }
 
     return (
-        <div className={"chat-manager"}>
-            <ChatList selectChat={selectChat}/>
-            <ChatArea chat={selected} closeCallback={closeChat}/>
+        <div className={"manager-container"}>
+            <div className={"chat-manager"}>
+                <ChatList selectChat={selectChat}/>
+                <ChatArea chat={selected} closeCallback={closeChat}/>
+            </div>
         </div>
     )
 }

@@ -27,17 +27,21 @@ const ChatList = ({selectChat}: ChatListProps) => {
 
     return (
         <>
-            <ul>
-                <h3>Chats</h3>
-                {chats.map((chat) => {
-                    return (
-                        <li key={chat._id} onClick={() => selectChat(chat._id)}>
-                            <ChatInfo chatId={chat._id}/>
-                        </li>
-                    );
-                })
-                }
-            </ul>
+            <div className={"chat-list"}>
+                <div className={"sub-header"}>
+                    <h3>Chats</h3>
+                </div>
+                <div className={"chat-list-inner"}>
+                    {chats.map((chat) => {
+                        return (
+                            <div key={chat._id} onClick={() => selectChat(chat._id)}>
+                                <ChatInfo chatId={chat._id}/>
+                            </div>
+                        )
+                    })
+                    }
+                </div>
+            </div>
         </>
     );
 }

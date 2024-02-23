@@ -24,7 +24,9 @@ const MatchPage = () => {
 
     return (
         <>
-            <h3>Find matches</h3>
+            <div className={"sub-header"}>
+                <h3>Find matches</h3>
+            </div>
             {user && user.id !== "0" && <span onClick={() => likeUser(user.id)}>{user.name}</span>}
             {user && user.id === "0" && <span>No new users</span>}
         </>

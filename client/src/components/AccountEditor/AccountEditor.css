@@ -1,0 +1,18 @@
+.editor {
+    display: flex;
+    flex-flow: column;
+    gap: 1em;
+    margin: 1em auto;
+}
+
+.editor > label {
+    display: flex;
+}
+
+.editor > label input:last-child {
+    margin-left: auto;
+}
+
+.editor > textarea {
+    margin-top: -1em;
+}

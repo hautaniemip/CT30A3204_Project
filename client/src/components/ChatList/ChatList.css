@@ -1,9 +1,14 @@
-.chat-manager ul {
-    padding: 0;
-    margin: 0;
+.chat-list {
+    display: flex;
+    flex-flow: column;
+    overflow: auto;
 }
 
-.chat-manager li {
-    list-style: none;
+.chat-list-inner {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.chat-list-inner > div {
     cursor: pointer;
 }

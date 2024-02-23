@@ -1,6 +1,29 @@
+.manager-container {
+    height: calc(100vh - 110px);
+    flex: 1 1 auto;
+    container-type: inline-size;
+    container-name: chat-manager;
+}
+
 .chat-manager {
+    height: 100%;
     display: grid;
-    grid-template-columns: 200px 1fr;
-    grid-template-rows: minmax(auto, 90vh);
-    margin: 5vh 5vw;
+    grid-template-columns: 400px minmax(400px, 1fr);
+    grid-template-rows: 100%;
+}
+
+.chat-manager > * {
+    grid-row: 1;
+}
+
+@container chat-manager (max-width: 900px) {
+    .chat-manager {
+        display: grid;
+        grid-template-columns: auto;
+    }
+
+    .chat-manager > * {
+        grid-row: 1;
+        grid-column: 1;
+    }
 }

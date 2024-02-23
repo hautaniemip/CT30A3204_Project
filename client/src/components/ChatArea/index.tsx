@@ -48,12 +48,23 @@ const ChatArea = ({chat, closeCallback}: ChatAreaProps) => {
         setUpdate(true);
     }
 
+    if (!chat)
+        return (
+            <div className={"chat-area"} style={{zIndex: "-1"}}>
+                <div className={"sub-header"}>
+                    <h3>Select chat</h3>
+                </div>
+            </div>
+        );
+
     return (
         <div>
             {chat &&
                 <div className={"chat-area"}>
-                    <h3><span className={"close-btn"}
-                              onClick={() => closeCallback()}>X</span> {chatInfo && chatInfo.name}</h3>
+                    <div className={"sub-header"}>
+                        <span className={"close-btn"} onClick={() => closeCallback()}>⨯</span>
+                        <h3>{chatInfo && chatInfo.name}</h3>
+                    </div>
                     <div className={"message-area"}>
                         {messages && messages.map((message) => {
                             return (<MessageView key={message.id} message={message}/>);

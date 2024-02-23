@@ -5,7 +5,9 @@ type MessageProps = {
 }
 const MessageView = ({message}: MessageProps) => {
     return (
-        <div className={message.sentByYou ? "message-out" : "message-in"}><span>{message.content}</span></div>
+        <div className={message.sentByYou ? "message-out" : "message-in"}>
+            <span className={"message"}>{message.content}</span>
+        </div>
     )
 }
 
