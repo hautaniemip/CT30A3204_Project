@@ -11,6 +11,10 @@ const ChatManager = () => {
         setSelected(chatId);
     }
 
+    const closeChat = () => {
+        setSelected(null);
+    }
+
     const updateManager = () => {
         setUpdate(!update);
     }
@@ -18,7 +22,7 @@ const ChatManager = () => {
     return (
         <div className={"chat-manager"}>
             <ChatList selectChat={selectChat} updateChatList={update}/>
-            <ChatArea chat={selected} updateCallback={updateManager}/>
+            <ChatArea chat={selected} updateCallback={updateManager} closeCallback={closeChat}/>
         </div>
     )
 }
