@@ -1,4 +1,4 @@
-import {Form, useActionData, useNavigation} from "react-router-dom";
+import {Form, Link, useActionData, useNavigation} from "react-router-dom";
 
 const LoginPage = () => {
     let navigation = useNavigation();
@@ -23,6 +23,7 @@ const LoginPage = () => {
                     <p style={{color: "red"}}>{actionData.error}</p>
                 ) : null}
             </Form>
+            <Link to={"/register"}>Don't have a account yet?</Link>
         </>
     );
 }
