@@ -6,8 +6,9 @@ import MessageBox from "./MessageBox";
 type ChatAreaProps = {
     chat: string | null;
     updateCallback: Function;
+    closeCallback: Function;
 }
-const ChatArea = ({chat, updateCallback}: ChatAreaProps) => {
+const ChatArea = ({chat, updateCallback, closeCallback}: ChatAreaProps) => {
     const [chatInfo, setChatInfo] = useState<Chat | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [update, setUpdate] = useState<boolean>(true);
@@ -42,7 +43,8 @@ const ChatArea = ({chat, updateCallback}: ChatAreaProps) => {
         <div>
             {chat &&
                 <div>
-                    <h3>{chatInfo && chatInfo.name}</h3>
+                    <h3><span className={"close-btn"}
+                              onClick={() => closeCallback()}>X</span> {chatInfo && chatInfo.name}</h3>
                     <div className={"message-area"}>
                         {messages && messages.map((message) => {
                             return (<div key={message.id}><span>{message.content}</span></div>)

@@ -3,3 +3,8 @@
     display: flex;
     flex-direction: column-reverse;
 }
+
+.close-btn {
+    cursor: pointer;
+}
+
