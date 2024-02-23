@@ -4,6 +4,8 @@ import {AuthProvider} from "./components/AuthProvider";
 import {createBrowserRouter, Link, LoaderFunctionArgs, Outlet, redirect, RouterProvider} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import {AuthStatus} from "./components/AuthStatus";
+import MatchPage from "./pages/MatchPage";
+import AccountPage from "./pages/AccountPage";
 import RegisterPage from "./pages/RegisterPage";
 
 const App = () => {
@@ -121,6 +123,16 @@ const router = createBrowserRouter([
                 index: true,
                 loader: protectedLoader,
                 Component: HomePage,
+            },
+            {
+                path: "matches",
+                loader: protectedLoader,
+                Component: MatchPage,
+            },
+            {
+                path: "account",
+                loader: protectedLoader,
+                Component: AccountPage,
             },
             {
                 path: "login",
