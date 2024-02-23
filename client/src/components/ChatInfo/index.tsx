@@ -34,7 +34,7 @@ const ChatInfo = ({chatId = null}: ChatProps) => {
                     {chatInfo.time ? new Intl.DateTimeFormat("fi").format(new Date(chatInfo.time)) : ""}
                 </span>
             </div>
-            <div>
+            <div className={"message-preview"}>
                 <span>{chatInfo.message}</span>
             </div>
         </div>
