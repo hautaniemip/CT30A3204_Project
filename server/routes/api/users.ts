@@ -50,7 +50,7 @@ router.post('/login', async (req, res) => {
                     sameSite: 'lax',
                 });
 
-                res.json({name: user.name, email: user.email});
+                res.json({id: user._id, name: user.name, email: user.email});
                 return true;
             }
 
@@ -75,7 +75,7 @@ router.post('/login', async (req, res) => {
             httpOnly: true,
             sameSite: 'lax',
         });
-        res.json({name: user.name, email: user.email});
+        res.json({id: user._id, name: user.name, email: user.email});
     });
 });
 
