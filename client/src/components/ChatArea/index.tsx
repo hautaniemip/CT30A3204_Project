@@ -6,10 +6,9 @@ import MessageView from "./MessageView";
 
 type ChatAreaProps = {
     chat: string | null;
-    updateCallback: Function;
     closeCallback: Function;
 }
-const ChatArea = ({chat, updateCallback, closeCallback}: ChatAreaProps) => {
+const ChatArea = ({chat, closeCallback}: ChatAreaProps) => {
     const [chatInfo, setChatInfo] = useState<Chat | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [update, setUpdate] = useState<boolean>(true);
@@ -37,7 +36,6 @@ const ChatArea = ({chat, updateCallback, closeCallback}: ChatAreaProps) => {
 
     const updateOnMessageSent = () => {
         setUpdate(true);
-        updateCallback();
     }
 
     return (

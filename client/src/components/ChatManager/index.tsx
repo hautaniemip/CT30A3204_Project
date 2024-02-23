@@ -5,7 +5,6 @@ import {useState} from "react";
 
 const ChatManager = () => {
     const [selected, setSelected] = useState<string | null>(null);
-    const [update, setUpdate] = useState<boolean>(false);
 
     const selectChat = (chatId: string) => {
         setSelected(chatId);
@@ -15,14 +14,10 @@ const ChatManager = () => {
         setSelected(null);
     }
 
-    const updateManager = () => {
-        setUpdate(!update);
-    }
-
     return (
         <div className={"chat-manager"}>
-            <ChatList selectChat={selectChat} updateChatList={update}/>
-            <ChatArea chat={selected} updateCallback={updateManager} closeCallback={closeChat}/>
+            <ChatList selectChat={selectChat}/>
+            <ChatArea chat={selected} closeCallback={closeChat}/>
         </div>
     )
 }
