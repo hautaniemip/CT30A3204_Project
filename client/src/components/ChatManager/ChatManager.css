@@ -1,0 +1,6 @@
+.chat-manager {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: minmax(auto, 90vh);
+    margin: 5vh 5vw;
+}
