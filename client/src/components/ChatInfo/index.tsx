@@ -1,15 +1,9 @@
 import {useEffect, useState} from "react";
 import "./ChatInfo.css"
+import {Chat} from "../../types/chat";
 
 type ChatProps = {
     chatId?: string | null;
-}
-
-type Chat = {
-    name: string;
-    time: string | null;
-    sender: string | null
-    message: string | null;
 }
 
 const ChatInfo = ({chatId = null}: ChatProps) => {
