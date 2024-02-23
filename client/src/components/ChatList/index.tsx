@@ -2,6 +2,10 @@ import {useEffect, useState} from "react";
 import ChatInfo from "../ChatInfo";
 import "./ChatList.css"
 
+type ChatListProps = {
+    selectChat: Function;
+}
+
 type Chat = {
     _id: string;
     participants: string[];
@@ -10,7 +14,7 @@ type Chat = {
     __v: number
 }
 
-const ChatList = () => {
+const ChatList = ({selectChat}: ChatListProps) => {
     const [chats, setChats] = useState<Chat[]>([]);
     useEffect(() => {
         fetch("/api/chats").then((res) => {
@@ -26,7 +30,7 @@ const ChatList = () => {
             <ul>
                 {chats.map((chat) => {
                     return (
-                        <li key={chat._id}>
+                        <li key={chat._id} onClick={() => selectChat(chat._id)}>
                             <ChatInfo chatId={chat._id}/>
                         </li>
                     );
