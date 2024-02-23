@@ -1,5 +1,6 @@
 interface AuthProviderInterface {
     isAuthenticated: boolean;
+    id: null | string;
     name: null | string;
     email: null | string;
 
@@ -12,6 +13,7 @@ interface AuthProviderInterface {
 
 export const AuthProvider: AuthProviderInterface = {
     isAuthenticated: false,
+    id: null,
     name: null,
     email: null,
     async register(name: string, email: string, password: string) {
@@ -40,6 +42,7 @@ export const AuthProvider: AuthProviderInterface = {
             return res.json();
         }).then((data) => {
             AuthProvider.isAuthenticated = true;
+            AuthProvider.id = data.id;
             AuthProvider.name = data.name;
             AuthProvider.email = data.email;
         });
@@ -47,6 +50,7 @@ export const AuthProvider: AuthProviderInterface = {
     async logout() {
         await new Promise((r) => setTimeout(r, 500));
         AuthProvider.isAuthenticated = false;
+        AuthProvider.id = null;
         AuthProvider.name = null;
         AuthProvider.email = null;
     },
