@@ -1,7 +1,7 @@
 import './App.css';
 import LoginPage from "./pages/LoginPage";
 import {AuthProvider} from "./components/AuthProvider";
-import {createBrowserRouter, LoaderFunctionArgs, Outlet, redirect, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Link, LoaderFunctionArgs, Outlet, redirect, RouterProvider} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import {AuthStatus} from "./components/AuthStatus";
 import RegisterPage from "./pages/RegisterPage";
@@ -19,6 +19,20 @@ const Title = () => {
                 <h1>Matcher</h1>
                 <AuthStatus/>
             </header>
+            {AuthProvider.isAuthenticated &&
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to={"/"}>Chats</Link>
+                        </li>
+                        <li>
+                            <Link to={"/matches"}>Matches</Link>
+                        </li>
+                        <li>
+                            <Link to={"/account"}>Account</Link>
+                        </li>
+                    </ul>
+                </nav>}
             <Outlet/>
         </>
     );
