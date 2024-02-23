@@ -1,17 +1,13 @@
 import {useFetcher, useRouteLoaderData} from "react-router-dom";
-
-interface User {
-    isAuthenticated: boolean,
-    name: string,
-    email: string,
-}
+import {User} from "../types/user";
+import {AuthProvider} from "./AuthProvider";
 
 export const AuthStatus = () => {
     // Get our logged in user, if they exist, from the root route loader data
     let {user} = useRouteLoaderData("root") as { user: User };
     let fetcher = useFetcher();
 
-    if (!user.isAuthenticated) {
+    if (!AuthProvider.isAuthenticated) {
         return <p>You are not logged in.</p>;
     }
 
