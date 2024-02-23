@@ -30,6 +30,7 @@ const ChatList = ({selectChat, updateChatList}: ChatListProps) => {
     return (
         <>
             <ul>
+                <h3>Chats</h3>
                 {chats.map((chat) => {
                     return (
                         <li key={chat._id} onClick={() => selectChat(chat._id)}>
