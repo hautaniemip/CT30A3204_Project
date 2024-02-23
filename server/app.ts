@@ -30,7 +30,7 @@ app.use(session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {secure: false}
+    cookie: {sameSite: "lax", secure: false}
 }));
 
 app.use(passport.initialize());
