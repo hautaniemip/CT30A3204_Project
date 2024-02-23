@@ -12,6 +12,14 @@ const ChatInfo = ({chatId = null}: ChatProps) => {
     useEffect(() => {
         if (!chatId)
             return;
+
+        fetch("/api/chats/" + chatId).then((res) => {
+            if (res.status !== 200) {
+                throw new Error("Invalid request")
+            }
+            return res.json();
+        }).then((data) => setChatInfo(data)).catch((err) => console.error(err));
+
         const interval = setInterval(() => {
             fetch("/api/chats/" + chatId).then((res) => {
                 if (res.status !== 200) {
@@ -19,7 +27,7 @@ const ChatInfo = ({chatId = null}: ChatProps) => {
                 }
                 return res.json();
             }).then((data) => setChatInfo(data)).catch((err) => console.error(err));
-        }, 1000);
+        }, 5000);
 
         return () => clearInterval(interval);
     }, [chatId]);
