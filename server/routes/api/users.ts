@@ -113,6 +113,23 @@ router.get('/:user', passport.authenticate('jwt'), (req, res) => {
     }).catch(() => res.status(400).send());
 });
 
+router.put('/edit', passport.authenticate('jwt'), (req, res) => {
+    const token = req.cookies['access_token'];
+    const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
+    const id = decoded_token._id;
+    const name = req.body.name;
+    const email = req.body.email;
+
+    User.findByIdAndUpdate(id, {name: name, email: email}).then((user) => {
+        if (!user) {
+            res.status(400).send();
+            return;
+        }
+
+        res.send();
+    }).catch(() => res.status(400).send());
+});
+
 router.post('/like', passport.authenticate('jwt'), async (req, res) => {
     const token = req.cookies['access_token'];
     const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
