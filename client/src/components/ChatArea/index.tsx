@@ -31,7 +31,17 @@ const ChatArea = ({chat, closeCallback}: ChatAreaProps) => {
             return res.json();
         }).then((data) => setMessages(data)).catch((err) => console.error(err));
 
+        const interval = setInterval(() => {
+            fetch("/api/messages/" + chat).then((res) => {
+                if (res.status !== 200) {
+                    throw new Error("Invalid request")
+                }
+                return res.json();
+            }).then((data) => setMessages(data)).catch((err) => console.error(err));
+        }, 1000);
+
         setUpdate(false);
+        return () => clearInterval(interval);
     }, [chat, update]);
 
     const updateOnMessageSent = () => {
