@@ -42,3 +42,11 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.message-out .message {
+    border-bottom-right-radius: 0;
+}
+
+.message-in .message {
+    border-bottom-left-radius: 0;
+}
