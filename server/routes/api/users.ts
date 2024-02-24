@@ -79,6 +79,10 @@ router.post('/login', async (req, res) => {
     });
 });
 
+router.post('/logout', passport.authenticate('jwt'), (req, res) => {
+    res.clearCookie("access_token").send();
+});
+
 router.get('/random', passport.authenticate('jwt'), (req, res) => {
     const token = req.cookies['access_token'];
     const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
