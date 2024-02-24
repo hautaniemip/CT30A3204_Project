@@ -1,17 +1,15 @@
 import express from 'express';
-import jwt, {JwtPayload} from 'jsonwebtoken';
 import passport from 'passport';
 
 import {User} from '../../models/user';
 import {Message} from '../../models/message';
 import {Chat} from "../../models/chat";
+import {getIdFromJwtCookie} from '../../helpers/helpers';
 
 export const router = express.Router();
 
 router.get('/:chat', passport.authenticate('jwt'), (req, res) => {
-    const token = req.cookies['access_token'];
-    const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
-    const id = decoded_token._id;
+    const id = getIdFromJwtCookie(req);
     const chatId = req.params.chat;
 
     User.findById(id).then((user) => {
@@ -41,9 +39,7 @@ router.get('/:chat', passport.authenticate('jwt'), (req, res) => {
 });
 
 router.post('/:chat', passport.authenticate('jwt'), (req, res) => {
-    const token = req.cookies['access_token'];
-    const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
-    const id = decoded_token._id;
+    const id = getIdFromJwtCookie(req);
     const chatId = req.params.chat;
     const content = req.body.message;
 
