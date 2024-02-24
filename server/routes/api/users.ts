@@ -204,7 +204,7 @@ const match = async (user: any) => {
                     user.matches.push(likedId);
                     matchFound = true;
                 }
-                Chat.find({participants: {'$all': [user._id, likedById]}}).then(async (chats) => {
+                await Chat.find({participants: {'$all': [user._id, likedById]}}).then(async (chats) => {
                     if (chats.length === 0)
                         await Chat.create({participants: [user._id, likedById]});
                 });
