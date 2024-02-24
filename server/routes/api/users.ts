@@ -97,6 +97,7 @@ router.get('/random', passport.authenticate('jwt'), (req, res) => {
 
         if (user.liked.length + user.disliked.length >= count - 1) {
             res.status(200).json({id: "0", name: ""});
+            return;
         }
 
         let randomUser = null;
