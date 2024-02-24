@@ -48,7 +48,7 @@ export const AuthProvider: AuthProviderInterface = {
         });
     },
     async logout() {
-        await new Promise((r) => setTimeout(r, 500));
+        await fetch("/api/users/logout", {method: "POST"});
         AuthProvider.isAuthenticated = false;
         AuthProvider.id = null;
         AuthProvider.name = null;
