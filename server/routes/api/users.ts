@@ -108,7 +108,7 @@ router.get('/random', passport.authenticate('jwt'), (req, res) => {
                 res.status(400).send();
                 return;
             }
-        } while (user._id.toString() === randomUser._id.toString() || user.liked.includes(randomUser._id))
+        } while (user._id.toString() === randomUser._id.toString() || user.liked.includes(randomUser._id) || user.disliked.includes(randomUser._id))
 
         res.json({id: randomUser._id, name: randomUser.name, status: randomUser.status})
     }).catch((err) => res.status(400).send(err));
