@@ -82,7 +82,7 @@ const loginLoader = async () => {
 
 const registerAction = async ({request}: LoaderFunctionArgs) => {
     const formData = await request.formData();
-    const name = formData.get("email") as string | null;
+    const name = formData.get("name") as string | null;
     const email = formData.get("email") as string | null;
     const password = formData.get("password") as string | null;
 
