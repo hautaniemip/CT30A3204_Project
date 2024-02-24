@@ -4,6 +4,9 @@ const chatSchema = new mongoose.Schema({
     participants: [Schema.Types.ObjectId],
 }, {timestamps: true});
 
+// Custom hook updating chat timestamp when no changes are made
+// It is used to update chats updatedAt timestamp to match last
+// message sent to that chat
 chatSchema.pre('save', function () {
     const changes = this.getChanges();
 
