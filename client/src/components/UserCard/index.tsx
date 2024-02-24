@@ -31,7 +31,11 @@ const UserCard = () => {
             if (res.status !== 200)
                 return;
             return res.json();
-        }).then((data) => setMatch(data.matchFound));
+        }).then((data) => {
+            setMatch(data.matchFound);
+            if (!data.matchFound)
+                getRandomUser();
+        });
     }
 
     const dislikeUser = (id: string) => {
