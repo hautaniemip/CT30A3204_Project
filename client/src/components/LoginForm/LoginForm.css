@@ -1,0 +1,19 @@
+.login-form {
+    display: flex;
+    flex-flow: column;
+    margin: 1em auto 0 auto;
+    gap: 0.5em;
+}
+
+.login-form > label {
+    display: flex;
+    flex-flow: row;
+}
+
+.login-form > label > input {
+    margin-left: auto;
+}
+
+.login-form a {
+    text-align: center;
+}
