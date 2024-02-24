@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     password: {type: String, required: true},
     status: String,
     liked: [Schema.Types.ObjectId],
+    disliked: [Schema.Types.ObjectId],
     likedBy: [Schema.Types.ObjectId],
     matches: [Schema.Types.ObjectId],
 });
