@@ -185,13 +185,13 @@ router.post('/like', passport.authenticate('jwt'), async (req, res) => {
     const liked = req.body.id;
 
     const matchFound = await User.findByIdAndUpdate(id, {'$addToSet': {'liked': liked}}, {returnDocument: 'after'}).then(async (user) => {
-        return await match(user)
+        return await match(user, true)
     }).catch(() => res.status(400).send());
-    User.findByIdAndUpdate(liked, {'$addToSet': {'likedBy': id}}, {returnDocument: 'after'}).then(await match).catch(() => res.status(400).send());
+    User.findByIdAndUpdate(liked, {'$addToSet': {'likedBy': id}}, {returnDocument: 'after'}).then(async (user) => await match(user, false)).catch(() => res.status(400).send());
     res.json({matchFound});
 });
 
-const match = async (user: any) => {
+const match = async (user: any, createChat: boolean) => {
     if (!user)
         return;
 
@@ -204,10 +204,13 @@ const match = async (user: any) => {
                     user.matches.push(likedId);
                     matchFound = true;
                 }
-                await Chat.find({participants: {'$all': [user._id, likedById]}}).then(async (chats) => {
-                    if (chats.length === 0)
-                        await Chat.create({participants: [user._id, likedById]});
-                });
+
+                if (createChat) {
+                    await Chat.find({participants: {'$all': [user._id, likedById]}}).then(async (chats) => {
+                        if (chats.length === 0)
+                            await Chat.create({participants: [user._id, likedById]});
+                    });
+                }
             }
         }
     }
