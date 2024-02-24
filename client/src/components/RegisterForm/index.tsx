@@ -1,4 +1,5 @@
 import {Form, useActionData, useNavigation} from "react-router-dom";
+import "./RegisterForm.css"
 
 const RegisterForm = () => {
     let navigation = useNavigation();
@@ -7,7 +8,7 @@ const RegisterForm = () => {
     let actionData = useActionData() as { error: string } | undefined;
 
     return (
-        <Form method="post" replace>
+        <Form method="post" replace className={"register-form"}>
             <label>
                 Name: <input name="name"/>
             </label>{" "}

@@ -1,0 +1,15 @@
+.register-form {
+    display: flex;
+    flex-flow: column;
+    margin: 1em auto 0 auto;
+    gap: 0.5em;
+}
+
+.register-form > label {
+    display: flex;
+    flex-flow: row;
+}
+
+.register-form > label > input {
+    margin-left: auto;
+}
