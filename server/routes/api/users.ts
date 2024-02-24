@@ -6,6 +6,7 @@ import passport from 'passport';
 
 import {User} from '../../models/user';
 import {Chat} from "../../models/chat";
+import {getIdFromJwtCookie, match} from '../../helpers/helpers';
 
 export const router = express.Router();
 
@@ -84,9 +85,7 @@ router.post('/logout', passport.authenticate('jwt'), (req, res) => {
 });
 
 router.get('/random', passport.authenticate('jwt'), (req, res) => {
-    const token = req.cookies['access_token'];
-    const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
-    const id = decoded_token._id;
+    const id = getIdFromJwtCookie(req);
 
     User.findById(id).then(async (user) => {
         if (!user) {
@@ -116,9 +115,7 @@ router.get('/random', passport.authenticate('jwt'), (req, res) => {
 
 
 router.get('/:user', passport.authenticate('jwt'), (req, res) => {
-    const token = req.cookies['access_token'];
-    const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
-    const id = decoded_token._id;
+    const id = getIdFromJwtCookie(req);
     const userId = req.params.user;
 
     User.findById(id).then((user) => {
@@ -151,9 +148,7 @@ router.get('/:user', passport.authenticate('jwt'), (req, res) => {
 });
 
 router.put('/edit', passport.authenticate('jwt'), (req, res) => {
-    const token = req.cookies['access_token'];
-    const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
-    const id = decoded_token._id;
+    const id = getIdFromJwtCookie(req);
     const name = req.body.name;
     const email = req.body.email;
     const status = req.body.status;
@@ -169,9 +164,7 @@ router.put('/edit', passport.authenticate('jwt'), (req, res) => {
 });
 
 router.post('/dislike', passport.authenticate('jwt'), async (req, res) => {
-    const token = req.cookies['access_token'];
-    const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
-    const id = decoded_token._id;
+    const id = getIdFromJwtCookie(req);
     const disliked = req.body.id;
 
     User.findByIdAndUpdate(id, {'$addToSet': {'disliked': disliked}}).catch(() => res.status(400).send());
@@ -179,9 +172,7 @@ router.post('/dislike', passport.authenticate('jwt'), async (req, res) => {
 });
 
 router.post('/like', passport.authenticate('jwt'), async (req, res) => {
-    const token = req.cookies['access_token'];
-    const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
-    const id = decoded_token._id;
+    const id = getIdFromJwtCookie(req);
     const liked = req.body.id;
 
     const matchFound = await User.findByIdAndUpdate(id, {'$addToSet': {'liked': liked}}, {returnDocument: 'after'}).then(async (user) => {
@@ -190,30 +181,3 @@ router.post('/like', passport.authenticate('jwt'), async (req, res) => {
     User.findByIdAndUpdate(liked, {'$addToSet': {'likedBy': id}}, {returnDocument: 'after'}).then(async (user) => await match(user, false)).catch(() => res.status(400).send());
     res.json({matchFound});
 });
-
-const match = async (user: any, createChat: boolean) => {
-    if (!user)
-        return;
-
-    let matchFound = false;
-
-    for (const likedId of user.liked) {
-        for (const likedById of user.likedBy) {
-            if (likedId.toString() === likedById.toString()) {
-                if (!user.matches.includes(likedId)) {
-                    user.matches.push(likedId);
-                    matchFound = true;
-                }
-
-                if (createChat) {
-                    await Chat.find({participants: {'$all': [user._id, likedById]}}).then(async (chats) => {
-                        if (chats.length === 0)
-                            await Chat.create({participants: [user._id, likedById]});
-                    });
-                }
-            }
-        }
-    }
-    user.save();
-    return matchFound;
-}
