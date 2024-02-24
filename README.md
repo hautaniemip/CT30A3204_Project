@@ -22,9 +22,10 @@ This requires a running MongoDB instance
 
 ## Features
 
-| Feature | Points |
-| Basic features (responsiveness tested **only** with Firefox and Firefox Mobile) | 25 |
-| Utilization of React | 5 |
-| If match is found, new chat is automatically added | 3 |
+| Feature                                                                         | Points |
+|---------------------------------------------------------------------------------|--------|
+| Basic features (responsiveness tested **only** with Firefox and Firefox Mobile) | 25     |
+| Utilization of React                                                            | 5      |
+| If match is found, new chat is automatically added                              | 3      |
 
 
