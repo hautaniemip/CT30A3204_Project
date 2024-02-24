@@ -8,6 +8,10 @@ const AccountEditor = () => {
     const [status, setStatus] = useState<string>("");
 
     useEffect(() => {
+        getProfile();
+    }, []);
+
+    const getProfile = () => {
         fetch("/api/users/" + AuthProvider.id).then((res) => {
             if (res.status !== 200)
                 return;
@@ -17,7 +21,7 @@ const AccountEditor = () => {
             setEmail(data.email);
             setStatus(data.status);
         });
-    }, []);
+    }
 
     const updateProfile = () => {
         fetch("/api/users/edit", {
