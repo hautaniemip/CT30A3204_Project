@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "npx tsc -p ./tsconfig.json && node ./dist/app.js",
     "dev": "npx tsc-watch --noClear -p ./tsconfig.json --onSuccess 'node ./dist/app.js'"
   },
   "dependencies": {
@@ -20,7 +20,8 @@
     "morgan": "~1.9.1",
     "nodemon": "^3.0.3",
     "passport": "^0.7.0",
-    "passport-jwt": "^4.0.1"
+    "passport-jwt": "^4.0.1",
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
