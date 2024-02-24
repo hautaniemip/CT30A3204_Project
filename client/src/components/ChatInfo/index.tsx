@@ -1,12 +1,13 @@
-import {useEffect, useState} from "react";
+import {MouseEventHandler, useEffect, useState} from "react";
 import "./ChatInfo.css"
 import {Chat} from "../../types/chat";
 
 type ChatProps = {
     chatId?: string | null;
+    onClick?: MouseEventHandler;
 }
 
-const ChatInfo = ({chatId = null}: ChatProps) => {
+const ChatInfo = ({chatId = null, onClick}: ChatProps) => {
     const [chatInfo, setChatInfo] = useState<Chat | null>(null);
 
     useEffect(() => {
@@ -36,7 +37,7 @@ const ChatInfo = ({chatId = null}: ChatProps) => {
         return;
 
     return (
-        <div className={"chat-info"}>
+        <div className={"chat-info"} onClick={onClick}>
             <div className={"row"}>
                 <span className={"name"}>
                     {chatInfo.name}
