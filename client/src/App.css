@@ -35,7 +35,7 @@ header :last-child {
     align-items: center;
 }
 
-a {
+nav a {
     padding: 0.5em;
     text-decoration: none;
     color: black;
