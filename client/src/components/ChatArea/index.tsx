@@ -17,27 +17,29 @@ const ChatArea = ({chat, closeCallback}: ChatAreaProps) => {
         if (!chat)
             return;
 
-        fetch("/api/chats/" + chat).then((res) => {
-            if (res.status !== 200) {
-                throw new Error("Invalid request")
-            }
-            return res.json();
-        }).then((data) => setChatInfo(data)).catch((err) => console.error(err));
-
-        fetch("/api/messages/" + chat).then((res) => {
-            if (res.status !== 200) {
-                throw new Error("Invalid request")
-            }
-            return res.json();
-        }).then((data) => setMessages(data)).catch((err) => console.error(err));
-
-        const interval = setInterval(() => {
+        const getMessages = () => {
             fetch("/api/messages/" + chat).then((res) => {
                 if (res.status !== 200) {
                     throw new Error("Invalid request")
                 }
                 return res.json();
             }).then((data) => setMessages(data)).catch((err) => console.error(err));
+        }
+
+        const getChatInfo = () => {
+            fetch("/api/chats/" + chat).then((res) => {
+                if (res.status !== 200) {
+                    throw new Error("Invalid request")
+                }
+                return res.json();
+            }).then((data) => setChatInfo(data)).catch((err) => console.error(err));
+        }
+
+        getChatInfo();
+        getMessages();
+
+        const interval = setInterval(() => {
+            getMessages();
         }, 1000);
 
         setUpdate(false);
@@ -58,7 +60,7 @@ const ChatArea = ({chat, closeCallback}: ChatAreaProps) => {
         );
 
     return (
-        <div>
+        <>
             {chat &&
                 <div className={"chat-area"}>
                     <div className={"sub-header"}>
@@ -74,7 +76,7 @@ const ChatArea = ({chat, closeCallback}: ChatAreaProps) => {
                 </div>
             }
 
-        </div>
+        </>
     )
 }
 
