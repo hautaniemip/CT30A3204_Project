@@ -1,7 +1,7 @@
 import './App.css';
 import LoginPage from "./pages/LoginPage";
 import {AuthProvider} from "./components/AuthProvider";
-import {createBrowserRouter, Link, LoaderFunctionArgs, Outlet, redirect, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, LoaderFunctionArgs, Outlet, redirect, RouterProvider} from "react-router-dom";
 import ChatPage from "./pages/ChatPage";
 import {AuthStatus} from "./components/AuthStatus";
 import MatchPage from "./pages/MatchPage";
@@ -14,7 +14,7 @@ const App = () => {
     );
 }
 
-const Title = () => {
+const Main = () => {
     return (
         <>
             <header>
@@ -93,17 +93,7 @@ const router = createBrowserRouter([
     {
         id: "root",
         path: "/",
-        loader() {
-            // Our root route always provides the user, if logged in
-            return {
-                user: {
-                    isAuthenticated: AuthProvider.isAuthenticated,
-                    name: AuthProvider.name,
-                    email: AuthProvider.email
-                }
-            };
-        },
-        Component: Title,
+        Component: Main,
         children: [
             {
                 index: true,
@@ -137,7 +127,6 @@ const router = createBrowserRouter([
     {
         path: "/logout",
         async action() {
-            // We signout in a "resource route" that we can hit from a fetcher.Form
             await AuthProvider.logout();
             return redirect("/");
         },
