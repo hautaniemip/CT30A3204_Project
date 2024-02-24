@@ -15,7 +15,7 @@ export const AuthStatus = () => {
         <>
             <fetcher.Form method="post" action="/logout">
                 <button type="submit" disabled={isLoggingOut}>
-                    {isLoggingOut ? "Signing out..." : "Sign out"}
+                    {isLoggingOut ? "Loging out..." : "Logout"}
                 </button>
             </fetcher.Form>
         </>
