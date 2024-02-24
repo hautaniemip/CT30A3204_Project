@@ -8,7 +8,9 @@ const LoginPage = () => {
 
     return (
         <>
-            <h2>Login</h2>
+            <div className={"sub-header"}>
+                <h3>Login</h3>
+            </div>
             <Form method="post" replace>
                 <label>
                     Email: <input name="email"/>
