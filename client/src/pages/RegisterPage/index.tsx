@@ -3,7 +3,9 @@ import RegisterForm from "../../components/RegisterForm";
 const RegisterPage = () => {
     return (
         <>
-            <h2>Register</h2>
+            <div className={"sub-header"}>
+                <h3>Register</h3>
+            </div>
             <RegisterForm/>
         </>
     );
