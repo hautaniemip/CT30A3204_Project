@@ -180,7 +180,9 @@ router.post('/like', passport.authenticate('jwt'), async (req, res) => {
     const id = decoded_token._id;
     const liked = req.body.id;
 
-    const matchFound = User.findByIdAndUpdate(id, {'$addToSet': {'liked': liked}}, {returnDocument: 'after'}).then(await match).catch(() => res.status(400).send());
+    const matchFound = await User.findByIdAndUpdate(id, {'$addToSet': {'liked': liked}}, {returnDocument: 'after'}).then(async (user) => {
+        return await match(user)
+    }).catch(() => res.status(400).send());
     User.findByIdAndUpdate(liked, {'$addToSet': {'likedBy': id}}, {returnDocument: 'after'}).then(await match).catch(() => res.status(400).send());
     res.json({matchFound});
 });
