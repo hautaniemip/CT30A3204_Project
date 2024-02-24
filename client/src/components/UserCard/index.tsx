@@ -50,7 +50,7 @@ const UserCard = () => {
 
     return (
         <>
-            {user && user.id === "0" && <span>No new users</span>}
+            {user && user.id === "0" && <div className={"user-card no-user"}><span>No new users</span></div>}
             {user && user.id !== "0" &&
                 <div className={"user-card"}>
                     <p className={"card-name"}>{user.name}</p>

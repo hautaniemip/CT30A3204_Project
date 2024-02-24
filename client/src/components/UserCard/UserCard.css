@@ -10,6 +10,10 @@
     flex-flow: column;
 }
 
+.user-card.no-user {
+    justify-content: center;
+}
+
 .card-name {
     flex: 0 1 auto;
 }
