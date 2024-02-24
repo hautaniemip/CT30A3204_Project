@@ -6,7 +6,7 @@ export const AuthStatus = () => {
     let fetcher = useFetcher();
 
     if (!AuthProvider.isAuthenticated) {
-        return <p>You are not logged in.</p>;
+        return <span></span>;
     }
 
     let isLoggingOut = fetcher.formData != null;
