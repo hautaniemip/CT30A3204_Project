@@ -12,3 +12,7 @@
 .chat-list-inner > div {
     cursor: pointer;
 }
+
+.chat-list-inner {
+    border-right: lightgray solid 1px;
+}
