@@ -21,20 +21,6 @@ const Title = () => {
                 <h1>Matcher</h1>
                 <AuthStatus/>
             </header>
-            {AuthProvider.isAuthenticated &&
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to={"/"}>Chats</Link>
-                        </li>
-                        <li>
-                            <Link to={"/matches"}>Matches</Link>
-                        </li>
-                        <li>
-                            <Link to={"/account"}>Account</Link>
-                        </li>
-                    </ul>
-                </nav>}
             <Outlet/>
         </>
     );
