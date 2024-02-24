@@ -95,7 +95,7 @@ router.get('/random', passport.authenticate('jwt'), (req, res) => {
         }
         const count = await User.countDocuments({});
 
-        if (user.liked.length === count - 1) {
+        if (user.liked.length + user.disliked.length >= count - 1) {
             res.status(200).json({id: "0", name: ""});
         }
 
