@@ -24,7 +24,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
     secret: process.env.SECRET,
@@ -46,7 +45,7 @@ const cookieExtractor = (req: any) => {
 
 passport.use(new JwtStrategy({
     jwtFromRequest: cookieExtractor,
-    secretOrKey: process.env.SECRET || 'secret'
+    secretOrKey: process.env.SECRET,
 }, (jwtPayload, done) => {
     User.findOne({email: jwtPayload.email}).then((user) => {
         if (!user)
@@ -66,11 +65,13 @@ passport.deserializeUser((user: any, done: any) => {
 app.use('/api', apiRouter);
 
 if (process.env.NODE_ENV === 'production') {
+    // Server client files on same port
     app.use(express.static(path.resolve('..', 'client', 'build')));
     app.get('*', (req, res) => {
         res.sendFile(path.resolve('..', 'client', 'build', 'index.html'));
     });
 } else if (process.env.NODE_ENV === 'development') {
+    // Allow proxying from development client
     const corsOptions = {
         origin: 'http://localhost:3000',
         optionsSuccessStatus: 200,
