@@ -5,7 +5,6 @@ import jwt, {JwtPayload} from 'jsonwebtoken';
 import passport from 'passport';
 
 import {User} from '../../models/user';
-import {Chat} from "../../models/chat";
 import {getIdFromJwtCookie, match} from '../../helpers/helpers';
 
 export const router = express.Router();
@@ -39,6 +38,7 @@ router.post('/register', body('name').isLength({min: 3}), body('email').isEmail(
 router.post('/login', async (req, res) => {
     const token = req.cookies['access_token'];
 
+    // Login user with token and return user details
     if (token) {
         const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
         const id = decoded_token._id;
@@ -62,6 +62,7 @@ router.post('/login', async (req, res) => {
             return;
     }
 
+    // Nomarl login process
     const email = req.body.email;
     const password = req.body.password;
 
