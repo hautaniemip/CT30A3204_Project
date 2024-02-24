@@ -3,6 +3,8 @@
     flex: 1 1 auto;
     container-type: inline-size;
     container-name: chat-manager;
+    contain: content;
+    overflow: auto;
 }
 
 .chat-manager {
@@ -10,6 +12,7 @@
     display: grid;
     grid-template-columns: 400px minmax(400px, 1fr);
     grid-template-rows: 100%;
+    contain: content;
 }
 
 .chat-manager > * {
@@ -20,6 +23,10 @@
     .chat-manager {
         display: grid;
         grid-template-columns: auto;
+    }
+
+    .chat-list-inner {
+        border-right: 0;
     }
 
     .chat-manager > * {
