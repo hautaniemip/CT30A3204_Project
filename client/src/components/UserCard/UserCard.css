@@ -1,3 +1,10 @@
+.card-container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: calc(100vh - 173px);
+}
+
 .user-card {
     width: 300px;
     max-width: 100%;

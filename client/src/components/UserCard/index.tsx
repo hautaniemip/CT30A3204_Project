@@ -50,18 +50,26 @@ const UserCard = () => {
 
     return (
         <>
-            {user && user.id === "0" && <div className={"user-card no-user"}><span>No new users</span></div>}
+            {user && user.id === "0" &&
+                <div className={"card-container"}>
+                    <div className={"user-card no-user"}><span>No new users</span></div>
+                </div>
+            }
             {user && user.id !== "0" &&
-                <div className={"user-card"}>
-                    <p className={"card-name"}>{user.name}</p>
-                    <div className={"card-status"}>
-                        <p>{!match ? user.status : "Match found! Go to 'Chats' to start chating"}</p></div>
-                    <div className={"card-buttons"}>
-                        <input type="button" value="Dislike" onClick={() => dislikeUser(user.id)}
-                               disabled={match}></input>
-                        <input type="button" value="Like" onClick={() => likeUser(user.id)} disabled={match}></input>
+                <div className={"card-container"}>
+                    <div className={"user-card"}>
+                        <p className={"card-name"}>{user.name}</p>
+                        <div className={"card-status"}>
+                            <p>{!match ? user.status : "Match found! Go to 'Chats' to start chating"}</p></div>
+                        <div className={"card-buttons"}>
+                            <input type="button" value="Dislike" onClick={() => dislikeUser(user.id)}
+                                   disabled={match}></input>
+                            <input type="button" value="Like" onClick={() => likeUser(user.id)}
+                                   disabled={match}></input>
+                        </div>
                     </div>
-                </div>}
+                </div>
+            }
         </>
     );
 }
