@@ -14,10 +14,9 @@ code {
 }
 
 #root {
-    height: 90%;
     display: flex;
     flex-flow: column;
-    margin: 0 10vw 5vh 10vw;
+    margin: 0 10vw;
     contain: content;
 }
 
