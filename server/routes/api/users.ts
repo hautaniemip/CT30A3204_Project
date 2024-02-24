@@ -164,6 +164,16 @@ router.put('/edit', passport.authenticate('jwt'), (req, res) => {
     }).catch(() => res.status(400).send());
 });
 
+router.post('/dislike', passport.authenticate('jwt'), async (req, res) => {
+    const token = req.cookies['access_token'];
+    const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
+    const id = decoded_token._id;
+    const liked = req.body.id;
+
+    User.findByIdAndUpdate(id, {'$addToSet': {'disliked': liked}});
+    res.send();
+});
+
 router.post('/like', passport.authenticate('jwt'), async (req, res) => {
     const token = req.cookies['access_token'];
     const decoded_token = jwt.verify(token, process.env.SECRET) as JwtPayload;
