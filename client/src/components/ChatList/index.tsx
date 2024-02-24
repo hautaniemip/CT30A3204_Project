@@ -17,12 +17,23 @@ type Chat = {
 const ChatList = ({selectChat}: ChatListProps) => {
     const [chats, setChats] = useState<Chat[]>([]);
     useEffect(() => {
+        const interval = setInterval(() => {
+            fetch("/api/chats").then((res) => {
+                if (res.status !== 200)
+                    throw new Error("Invalid request");
+
+                return res.json();
+            }).then((data) => setChats(data.chats)).catch((err) => console.error(err));
+        }, 5000);
+
         fetch("/api/chats").then((res) => {
             if (res.status !== 200)
                 throw new Error("Invalid request");
 
             return res.json();
         }).then((data) => setChats(data.chats)).catch((err) => console.error(err));
+
+        return () => clearInterval(interval);
     }, []);
 
     return (
