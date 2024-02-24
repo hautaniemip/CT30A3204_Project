@@ -1,0 +1,28 @@
+.user-card {
+    width: 300px;
+    max-width: 100%;
+    min-height: 200px;
+    margin: auto auto;
+    text-align: center;
+    border: black solid 2px;
+    border-radius: 2em;
+    display: flex;
+    flex-flow: column;
+}
+
+.card-name {
+    flex: 0 1 auto;
+}
+
+.card-status {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.card-buttons {
+    flex: 0 1 auto;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+    margin: 1em 0;
+}
