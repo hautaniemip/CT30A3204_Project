@@ -1,6 +1,5 @@
 .chat-area {
     background: #ffffff;
-    height: calc(100vh - 110px);
     display: flex;
     flex-flow: column;
 }
@@ -9,7 +8,7 @@
     flex: 1 1 auto;
     overflow: auto;
     display: flex;
-    flex-direction: column-reverse;
+    flex-flow: column-reverse;
 }
 
 .message-box {
