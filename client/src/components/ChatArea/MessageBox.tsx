@@ -33,7 +33,8 @@ const MessageBox = ({chat, messageSentCallback}: MessageBoxProps) => {
 
     return (
         <div className={"message-box"}>
-            <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} onKeyDown={handleEnter}/>
+            <input className={"message-input"} type="text" value={message} onChange={(e) => setMessage(e.target.value)}
+                   onKeyDown={handleEnter}/>
             <input type="button" value="Send" onClick={() => sendMessage(chat)}/>
         </div>
     );

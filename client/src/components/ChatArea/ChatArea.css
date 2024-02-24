@@ -13,6 +13,14 @@
 
 .message-box {
     flex: 0 1 30px;
+    margin: 0 1em;
+    display: flex;
+    flex-flow: row;
+    gap: 1em;
+}
+
+.message-input {
+    flex: 1 1 auto;
 }
 
 .close-btn {
