@@ -44,11 +44,7 @@ const ChatList = ({selectChat}: ChatListProps) => {
                 </div>
                 <div className={"chat-list-inner"}>
                     {chats.map((chat) => {
-                        return (
-                            <div key={chat._id} onClick={() => selectChat(chat._id)}>
-                                <ChatInfo chatId={chat._id}/>
-                            </div>
-                        )
+                        return <ChatInfo key={chat._id} chatId={chat._id} onClick={() => selectChat(chat._id)}/>
                     })
                     }
                 </div>
