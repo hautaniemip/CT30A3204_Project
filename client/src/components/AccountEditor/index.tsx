@@ -35,7 +35,7 @@ const AccountEditor = () => {
                 Name: <input name="name" value={name} onChange={(e) => setName(e.target.value)}/>
             </label>
             <label>
-                Email: <input name="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                Email: <input name="email" value={email} onChange={(e) => setEmail(e.target.value)} type="email"/>
             </label>
             <label htmlFor={"status"}>Status:</label>
             <textarea name={"status"} id={"status"} value={status}
