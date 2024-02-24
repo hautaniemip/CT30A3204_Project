@@ -14,10 +14,10 @@ const RegisterPage = () => {
                     Name: <input name="name"/>
                 </label>{" "}
                 <label>
-                    Email: <input name="email"/>
+                    Email: <input name="email" type="email"/>
                 </label>{" "}
                 <label>
-                    Password: <input name="password"/>
+                    Password: <input name="password" type="password"/>
                 </label>{" "}
                 <button type="submit" disabled={isRegistering}>
                     {isRegistering ? "Registering..." : "Register"}
